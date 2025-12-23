@@ -33,8 +33,6 @@ export class AuthService {
     });
 
     // Jangan kembalikan password ke client
-    // kita mengembalikan objek tanpa password
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...safe } = created;
     return safe as Omit<User, 'password'>;
   }
@@ -60,11 +58,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    // ⬇️ payload sekarang juga membawa iddivision
     const payload = {
       sub: user.iduser,
       email: user.email,
       idrole: user.idrole,
+      iddivision: user.iddivision, // penting untuk Ketua Divisi / Staf
     };
+
     const token = this.jwtService.sign(payload);
 
     return { access_token: token };

@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity({ name: 'users', schema: 'manprodb' })
 export class User {
@@ -16,4 +17,8 @@ export class User {
 
   @Column({ name: 'password', type: 'varchar', length: 255 })
   password: string;
+
+  @Column({ nullable: true })
+  iddivision: number;
+
 }
